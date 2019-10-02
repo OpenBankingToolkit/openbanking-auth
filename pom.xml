@@ -35,52 +35,10 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>11</java.version>
 
-        <spring-cloud.version>Greenwich.SR1</spring-cloud.version>
+        <ob-build.version>1.0.29-SNAPSHOT</ob-build.version>
+        <spring-security-multi-auth-starter.version>0.0.15</spring-security-multi-auth-starter.version>
+        <ob-analytics.version>1.1.4</ob-analytics.version>
 
-        <ob.sdk.version>3.1.2.3</ob.sdk.version>
-        <eidas.psd2.sdk.version>1.11</eidas.psd2.sdk.version>
-
-        <jodatime.version>2.9.9</jodatime.version>
-        <apache.version>4.5.9</apache.version>
-        <jersey.version>2.25.1</jersey.version>
-        <junit.version>4.12</junit.version>
-        <jwt.nimbus.version>7.3</jwt.nimbus.version>
-        <bouncycastle.version>1.62</bouncycastle.version>
-        <slf4j.version>1.7.6</slf4j.version>
-        <swagger.version>2.9.2</swagger.version>
-        <swagger.ui.version>2.9.2</swagger.ui.version>
-        <springfox-version>2.6.1</springfox-version>
-        <shedlock.version>0.16.1</shedlock.version>
-        <javax.version>1.1.0.Final</javax.version>
-        <tunyk.version>1.0</tunyk.version>
-        <logstash.version>4.11</logstash.version>
-        <micrometer.version>1.0.3</micrometer.version>
-        <spring-boot-admin.version>2.1.4</spring-boot-admin.version>
-        <selenium.version>3.14.0</selenium.version>
-        <unirest-java.version>2.3.06</unirest-java.version>
-        <jjwt.version>0.10.5</jjwt.version>
-        <minimal-json.version>0.9.5</minimal-json.version>
-        <jmockdata.version>3.1.0</jmockdata.version>
-        <docker-compose-rule-junit4.version>0.32.0</docker-compose-rule-junit4.version>
-        <docker-compose-maven-plugin.version>2.2.0</docker-compose-maven-plugin.version>
-        <jackson-datatype-joda.version>2.9.7</jackson-datatype-joda.version>
-        <maven-surefire-plugin.version>2.22.1</maven-surefire-plugin.version>
-        <google-cloud-logging-logback-version>0.73.0-alpha</google-cloud-logging-logback-version>
-        <assertj-joda-time.version>2.2.0</assertj-joda-time.version>
-        <geoIP.version>2.8.0</geoIP.version>
-        <jaxb.sun.version>2.2.11</jaxb.sun.version>
-        <jaxb.javax.version>2.2</jaxb.javax.version>
-        <catch-exception.version>2.0</catch-exception.version>
-        <jsoup.version>1.11.2</jsoup.version>
-        <csv.version>2.1.0</csv.version>
-        <jackson-databind.version>2.9.9</jackson-databind.version>
-
-        <guava.version>28.0-jre</guava.version>
-        <javax.version>4.0.1</javax.version>
-        <zipkin.version>5.6.11</zipkin.version>
-        <mockito.core.version>2.28.2</mockito.core.version>
-        <assertj.core.version>3.13.2</assertj.core.version>
-        <spring.multi-auth.version>0.0.9</spring.multi-auth.version>
     </properties>
 
     <modules>
@@ -93,42 +51,42 @@
             <dependency>
                 <groupId>com.forgerock.openbanking</groupId>
                 <artifactId>forgerock-openbanking-jwt</artifactId>
-                <version>${project.version}</version>
+                <version>${ob-build.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.forgerock.openbanking</groupId>
                 <artifactId>forgerock-openbanking-model</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.forgerock.openbanking</groupId>
-                <artifactId>forgerock-openbanking-auth</artifactId>
-                <version>${project.version}</version>
+                <version>${ob-build.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.forgerock.openbanking</groupId>
                 <artifactId>forgerock-openbanking-ssl</artifactId>
-                <version>${project.version}</version>
+                <version>${ob-build.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.forgerock.openbanking</groupId>
                 <artifactId>forgerock-openbanking-upgrade</artifactId>
-                <version>${project.version}</version>
+                <version>${ob-build.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.forgerock.openbanking</groupId>
                 <artifactId>forgerock-openbanking-am</artifactId>
-                <version>${project.version}</version>
+                <version>${ob-build.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.forgerock.openbanking</groupId>
                 <artifactId>forgerock-openbanking-oidc</artifactId>
-                <version>${project.version}</version>
+                <version>${ob-build.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.forgerock.openbanking.analytics</groupId>
+                <artifactId>forgerock-openbanking-analytics-client</artifactId>
+                <version>${ob-analytics.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.forgerock</groupId>
                 <artifactId>spring-security-multi-auth-starter</artifactId>
-                <version>${spring.multi-auth.version}</version>
+                <version>${spring-security-multi-auth-starter.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
