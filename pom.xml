@@ -35,9 +35,9 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>11</java.version>
 
-        <ob-build.version>1.0.30</ob-build.version>
+        <ob-common.version>1.0.31</ob-common.version>
         <spring-security-multi-auth-starter.version>0.0.15</spring-security-multi-auth-starter.version>
-        <ob-analytics.version>1.1.4</ob-analytics.version>
+        <ob-analytics.version>1.1.6</ob-analytics.version>
 
     </properties>
 
@@ -51,32 +51,32 @@
             <dependency>
                 <groupId>com.forgerock.openbanking</groupId>
                 <artifactId>forgerock-openbanking-jwt</artifactId>
-                <version>${ob-build.version}</version>
+                <version>${ob-common.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.forgerock.openbanking</groupId>
                 <artifactId>forgerock-openbanking-model</artifactId>
-                <version>${ob-build.version}</version>
+                <version>${ob-common.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.forgerock.openbanking</groupId>
                 <artifactId>forgerock-openbanking-ssl</artifactId>
-                <version>${ob-build.version}</version>
+                <version>${ob-common.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.forgerock.openbanking</groupId>
                 <artifactId>forgerock-openbanking-upgrade</artifactId>
-                <version>${ob-build.version}</version>
+                <version>${ob-common.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.forgerock.openbanking</groupId>
                 <artifactId>forgerock-openbanking-am</artifactId>
-                <version>${ob-build.version}</version>
+                <version>${ob-common.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.forgerock.openbanking</groupId>
                 <artifactId>forgerock-openbanking-oidc</artifactId>
-                <version>${ob-build.version}</version>
+                <version>${ob-common.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.forgerock.openbanking.analytics</groupId>
