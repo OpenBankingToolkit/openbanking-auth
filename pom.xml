@@ -14,7 +14,7 @@
     <name>ForgeRock OpenBanking Reference Implementation - auths</name>
     <groupId>com.forgerock.openbanking</groupId>
     <artifactId>forgerock-openbanking-starter-auth</artifactId>
-    <version>1.0.2-SNAPSHOT</version>
+    <version>1.0.17-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <parent>
