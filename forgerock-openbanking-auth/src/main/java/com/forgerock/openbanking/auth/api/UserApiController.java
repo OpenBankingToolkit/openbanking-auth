@@ -15,6 +15,7 @@ import com.forgerock.openbanking.auth.model.AuthorisationResponse;
 import com.forgerock.openbanking.auth.model.ExchangeCodeResponse;
 import com.forgerock.openbanking.auth.model.User;
 import com.forgerock.openbanking.auth.services.UserAuthService;
+import com.forgerock.openbanking.auth.services.UserProvider;
 import com.forgerock.openbanking.exceptions.OIDCException;
 import com.forgerock.openbanking.jwt.exceptions.InvalidTokenException;
 import com.nimbusds.jose.JOSEException;
@@ -42,14 +43,17 @@ public class UserApiController implements UserApi {
     private final String redirectUri;
     private final UserAuthService userAuthService;
     private SessionCountersKPIService sessionCountersKPIService;
+    private UserProvider userProvider;
 
     @Autowired
     public UserApiController(@Value("${ob.auth.oidc.client.redirect-uri}") String redirectUri,
                              UserAuthService userAuthService,
-                             SessionCountersKPIService sessionCountersKPIService) {
+                             SessionCountersKPIService sessionCountersKPIService,
+                             UserProvider userProvider) {
         this.redirectUri = redirectUri;
         this.userAuthService = userAuthService;
         this.sessionCountersKPIService = sessionCountersKPIService;
+        this.userProvider = userProvider;
     }
 
     @Override
@@ -69,7 +73,7 @@ public class UserApiController implements UserApi {
             HttpServletResponse response,
             Principal principal
     ) throws OIDCException, InvalidTokenException, CertificateEncodingException {
-        log.debug("Attempt login for principal: {}");
+        log.debug("Attempt login for principal: {}", principal);
         sessionCountersKPIService.incrementSessionCounter(SessionCounterType.METRIC);
         ExchangeCodeResponse exchangeCodeResponse = userAuthService.loginUserWithCode(authorisationResponse.getCode(), originURL, redirectUri, response);
         return ResponseEntity.ok(exchangeCodeResponse);
@@ -80,7 +84,7 @@ public class UserApiController implements UserApi {
             HttpServletResponse response,
             Principal principal
     ) {
-        log.debug("Attempt logout for principal: {}");
+        log.debug("Attempt logout for principal: {}", principal);
         try {
             return ResponseEntity.ok(userAuthService.logout(principal, response));
         } catch (JOSEException e) {
@@ -95,7 +99,7 @@ public class UserApiController implements UserApi {
             Authentication authentication
     ) throws CertificateEncodingException {
         log.debug("Attempt to get user: {}", authentication);
-        return ResponseEntity.ok(authentication.getDetails());
+        return ResponseEntity.ok(userProvider.getUser(authentication));
     }
 }
 

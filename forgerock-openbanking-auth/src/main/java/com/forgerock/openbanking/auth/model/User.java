@@ -7,29 +7,19 @@
  */
 package com.forgerock.openbanking.auth.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
     private String id;
     private Collection<String> authorities = new ArrayList<>();
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setAuthorities(Collection<String> authorities) {
-        this.authorities = authorities;
-    }
-
-    public Collection<String> getAuthorities() {
-        return authorities;
-    }
 }
