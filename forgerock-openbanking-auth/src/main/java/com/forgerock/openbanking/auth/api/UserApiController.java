@@ -59,11 +59,10 @@ public class UserApiController implements UserApi {
     @Override
     public ResponseEntity<String> startAuthorisationCodeFlow(
             @RequestParam(value = "originUrl") String originUrl,
-            HttpServletResponse response,
-            Principal principal
+            HttpServletResponse response
     ) {
-        log.debug("Attempt to start authorisation code flow for principal: {} from origin: {}", principal, originUrl);
-        return ResponseEntity.ok(userAuthService.createAuthorisationRequest(principal, originUrl, redirectUri, response));
+        log.debug("Attempt to start authorisation code flow from origin: {}", originUrl);
+        return ResponseEntity.ok(userAuthService.createAuthorisationRequest(originUrl, redirectUri, response));
     }
 
     @Override

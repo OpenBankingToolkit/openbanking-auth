@@ -39,8 +39,7 @@ public interface UserApi {
     @RequestMapping(value = "/initiate-login", method = RequestMethod.GET)
     ResponseEntity<String> startAuthorisationCodeFlow(
             @RequestParam(value = "originUrl") String originUrl,
-            HttpServletResponse response,
-            Principal principal
+            HttpServletResponse response
     );
 
     @ApiOperation(value = "Login by exchange ID token to session")

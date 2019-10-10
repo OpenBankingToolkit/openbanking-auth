@@ -62,14 +62,13 @@ public class UserAuthService {
 
     /**
      * Create a new authorisation request URI for the auth server to initiate auth process
-     * @param principal User principal
      * @param originUrl Auth origin URL
      * @param redirectUri URI to redirect after auth
      * @param httpResponse HTTP Response (for cookie)
      * @return Auth request URI
      */
-    public String createAuthorisationRequest(Principal principal, String originUrl, String redirectUri, HttpServletResponse httpResponse) {
-        log.info("startAuthorisationCodeFlow for {}, originUrl: {}", principal.getName(), originUrl);
+    public String createAuthorisationRequest(String originUrl, String redirectUri, HttpServletResponse httpResponse) {
+        log.info("startAuthorisationCodeFlow  originUrl: {}", originUrl);
         final String authorisationRequest = openIdService.generateAuthorisationRequest(UUID.randomUUID().toString(), redirectUri, AUTH_SCOPES, Collections.emptyList());
         cookieService.createCookie(httpResponse, OIDC_ORIGIN_URI_CONTEXT_COOKIE_NAME, originUrl);
         return authorisationRequest;
