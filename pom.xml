@@ -35,9 +35,8 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>11</java.version>
 
-        <ob-common.version>1.0.31</ob-common.version>
-        <spring-security-multi-auth-starter.version>0.0.15</spring-security-multi-auth-starter.version>
-        <ob-analytics.version>1.1.6</ob-analytics.version>
+        <ob-common.version>1.0.33</ob-common.version>
+        <ob-analytics.version>1.1.8</ob-analytics.version>
 
     </properties>
 
@@ -82,11 +81,6 @@
                 <groupId>com.forgerock.openbanking.analytics</groupId>
                 <artifactId>forgerock-openbanking-analytics-client</artifactId>
                 <version>${ob-analytics.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.forgerock</groupId>
-                <artifactId>spring-security-multi-auth-starter</artifactId>
-                <version>${spring-security-multi-auth-starter.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
