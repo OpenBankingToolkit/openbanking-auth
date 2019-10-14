@@ -9,7 +9,6 @@ package com.forgerock.openbanking.auth.services;
 
 import com.forgerock.openbanking.am.gateway.AMAuthGateway;
 import com.forgerock.openbanking.auth.model.ExchangeCodeResponse;
-import com.forgerock.openbanking.auth.model.User;
 import com.forgerock.openbanking.exceptions.OIDCException;
 import com.forgerock.openbanking.jwt.exceptions.InvalidTokenException;
 import com.forgerock.openbanking.model.UserContext;
@@ -23,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -117,9 +117,9 @@ public class UserAuthService {
      * @return True if logged out
      */
     public boolean logout(Principal principal, HttpServletResponse response) throws JOSEException {
-        UserContext userContext = (UserContext) ((Authentication) principal).getPrincipal();
-        log.debug("logout: {}", userContext.getUsername());
-        cookieService.deleteSessionCookie(response, sessionService.expiredSessionContext(userContext));
+        User user = (User) ((Authentication) principal).getPrincipal();
+        log.debug("logout: {}", user.getUsername());
+        cookieService.deleteSessionCookie(response, sessionService.expiredSessionContext(user));
         log.debug("Deleted session cookie");
         return true;
     }

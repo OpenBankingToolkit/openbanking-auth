@@ -31,6 +31,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.HttpClientErrorException;
@@ -62,16 +63,16 @@ public class SessionService {
 
     /**
      * Get an expired session, useful for logout a user
-     * @param userContext the user context
+     * @param user the user context
      * @return a user token with an expiration negatives
      */
-    public String expiredSessionContext(UserContext userContext) throws JOSEException {
+    public String expiredSessionContext(User user) throws JOSEException {
         JWTClaimsSet.Builder sessionClaims  = new JWTClaimsSet.Builder()
                 .issuer(issuerId)
                 .audience(issuerId)
-                .subject(userContext.getUsername())
+                .subject(user.getUsername())
                 .expirationTime(new Date(0))
-                .claim(OpenBankingConstants.SSOClaim.AUTHORITIES, userContext.getAuthorities());
+                .claim(OpenBankingConstants.SSOClaim.AUTHORITIES, user.getAuthorities());
 
         return cryptoApiClient.signAndEncryptJwtForOBApp(sessionClaims.build(), issuerId);
     }
