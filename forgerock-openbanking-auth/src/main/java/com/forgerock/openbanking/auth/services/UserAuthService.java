@@ -21,7 +21,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -33,10 +32,7 @@ import java.security.cert.CertificateEncodingException;
 import java.text.ParseException;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 import static com.forgerock.openbanking.auth.services.CookieService.OIDC_ORIGIN_URI_CONTEXT_COOKIE_NAME;
 
@@ -117,9 +113,8 @@ public class UserAuthService {
      * @return True if logged out
      */
     public boolean logout(Principal principal, HttpServletResponse response) throws JOSEException {
-        User user = (User) ((Authentication) principal).getPrincipal();
-        log.debug("logout: {}", user.getUsername());
-        cookieService.deleteSessionCookie(response, sessionService.expiredSessionContext(user));
+        log.debug("logout: {}", principal.getName());
+        cookieService.deleteSessionCookie(response, sessionService.expiredSessionContext());
         log.debug("Deleted session cookie");
         return true;
     }
