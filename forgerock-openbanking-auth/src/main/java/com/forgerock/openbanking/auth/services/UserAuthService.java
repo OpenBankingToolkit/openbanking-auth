@@ -20,8 +20,6 @@ import com.nimbusds.jose.JOSEException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -30,8 +28,10 @@ import java.io.IOException;
 import java.security.Principal;
 import java.security.cert.CertificateEncodingException;
 import java.text.ParseException;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import static com.forgerock.openbanking.auth.services.CookieService.OIDC_ORIGIN_URI_CONTEXT_COOKIE_NAME;
@@ -46,14 +46,18 @@ public class UserAuthService {
     private final CookieService cookieService;
     private final String amAccessTokenEndpoint;
     private final AMAuthGateway amGateway;
+    private final List<String> acrValues;
 
     @Autowired
-    public UserAuthService(OpenIdService openIdService, SessionService sessionService, CookieService cookieService, @Value("${am.internal.oidc.endpoint.accesstoken}") String amAccessTokenEndpoint, AMAuthGateway amGateway) {
+    public UserAuthService(OpenIdService openIdService, SessionService sessionService, CookieService cookieService,
+                           @Value("${am.internal.oidc.endpoint.accesstoken}") String amAccessTokenEndpoint, AMAuthGateway amGateway,
+                           @Value("${ob.auth.oidc.acr}") Optional<List<String>> acrValue) {
         this.openIdService = openIdService;
         this.sessionService = sessionService;
         this.cookieService = cookieService;
         this.amAccessTokenEndpoint = amAccessTokenEndpoint;
         this.amGateway = amGateway;
+        this.acrValues = acrValue.orElse(Collections.emptyList());
     }
 
     /**
@@ -65,7 +69,7 @@ public class UserAuthService {
      */
     public String createAuthorisationRequest(String originUrl, String redirectUri, HttpServletResponse httpResponse) {
         log.info("startAuthorisationCodeFlow  originUrl: {}", originUrl);
-        final String authorisationRequest = openIdService.generateAuthorisationRequest(UUID.randomUUID().toString(), redirectUri, AUTH_SCOPES, Collections.emptyList());
+        final String authorisationRequest = openIdService.generateAuthorisationRequest(UUID.randomUUID().toString(), redirectUri, AUTH_SCOPES, acrValues);
         cookieService.createCookie(httpResponse, OIDC_ORIGIN_URI_CONTEXT_COOKIE_NAME, originUrl);
         return authorisationRequest;
     }
