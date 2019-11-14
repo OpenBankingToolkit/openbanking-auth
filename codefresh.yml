@@ -42,6 +42,20 @@ steps:
     commands:
       - mvn -Dmaven.repo.local=/codefresh/volume/${{CF_BRANCH_TAG_NORMALIZED}}/.m2/repository -DdockerCompose.skip -Ddockerfile.skip -DskipITs verify
 
+  disable-include-administrator:
+    title: "temporarily disable include administrators"
+    stage: "deploy"
+    image: benjjefferies/branch-protection-bot
+    environment:
+      - ACCESS_TOKEN=${{GITHUB_ACCESS_TOKEN}}
+      - OWNER=${{CF_REPO_OWNER}}
+      - REPO=${{CF_REPO_NAME}}
+    when:
+      condition:
+        all:
+          noSkipCiInCommitMessage: 'includes(lower("${{CF_COMMIT_MESSAGE}}"), "[maven-release-plugin]") == false'
+          masterBranch: '"${{CF_BRANCH}}" == "master"'
+
  # deploy jar stage
   deploy-master:
     title: "deploy jars to private maven repo"
@@ -57,6 +71,20 @@ steps:
       - GITHUB_ACCESS_TOKEN=${{GITHUB_ACCESS_TOKEN}}
       - FR_PRIVATE_REPO_USER=${{FR_PRIVATE_REPO_USER}}
       - FR_PRIVATE_REPO_PASSWORD=${{FR_PRIVATE_REPO_PASSWORD}}
+    when:
+      condition:
+        all:
+          noSkipCiInCommitMessage: 'includes(lower("${{CF_COMMIT_MESSAGE}}"), "[maven-release-plugin]") == false'
+          masterBranch: '"${{CF_BRANCH}}" == "master"'
+
+  enable-include-administrator:
+    title: "enable include administrators"
+    stage: "deploy"
+    image: benjjefferies/branch-protection-bot
+    environment:
+      - ACCESS_TOKEN=${{GITHUB_ACCESS_TOKEN}}
+      - OWNER=${{CF_REPO_OWNER}}
+      - REPO=${{CF_REPO_NAME}}
     when:
       condition:
         all:
