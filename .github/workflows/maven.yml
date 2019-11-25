@@ -13,7 +13,7 @@ jobs:
       with:
         java-version: 1.11
     - name: Set up maven
-      run: curl https://raw.githubusercontent.com/ForgeCloud/ob-release/master/src/settings.xml > $M2_HOME/conf/settings.xml
+      run: curl https://raw.githubusercontent.com/ForgeRock/ob-release/master/src/settings.xml > $M2_HOME/conf/settings.xml
     - name: Check Copyright	
       run: mvn -ntp license:check	
       env:	
@@ -30,8 +30,8 @@ jobs:
       if: always()
       with:
         access-token: ${{ secrets.ACCESS_TOKEN }}
-        owner: forgecloud
-        repo: ob-auth
+        owner: OpenBankingToolkit
+        repo: openbanking-auth
     - name: Deploy
       run: |
         readonly local last_release_commit_hash=$(git log --author="openbankbot" --pretty=format:"%H" -1)
@@ -49,7 +49,7 @@ jobs:
         fi
         git checkout ${GITHUB_REF##*/}
         git reset --hard ${GITHUB_SHA}
-        curl https://raw.githubusercontent.com/ForgeCloud/ob-release/master/src/release.sh > $HOME/release.sh
+        curl https://raw.githubusercontent.com/ForgeRock/ob-release/master/src/release.sh > $HOME/release.sh
         bash $HOME/release.sh $M2_HOME/repository
       env:
         FR_PRIVATE_REPO_USER: ${{ secrets.FR_PRIVATE_REPO_USER }}
@@ -62,5 +62,5 @@ jobs:
       if: always()
       with:
         access-token: ${{ secrets.ACCESS_TOKEN }}
-        owner: forgecloud
-        repo: ob-auth
+        owner: OpenBankingToolkit
+        repo: openbanking-auth
