@@ -23,6 +23,7 @@ import com.forgerock.openbanking.model.UserGroup;
 import com.forgerock.openbanking.model.error.OBRIErrorType;
 import com.forgerock.openbanking.model.oidc.AccessTokenResponse;
 import com.forgerock.openbanking.oidc.services.OpenIdService;
+import com.google.common.collect.Sets;
 import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
@@ -31,12 +32,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.HttpClientErrorException;
 
 import java.io.IOException;
 import java.security.cert.CertificateEncodingException;
+import java.security.cert.X509Certificate;
 import java.text.ParseException;
 import java.time.Duration;
 import java.util.*;
@@ -130,20 +133,21 @@ public class SessionService {
      * @param sessionType which type of session is being created
      * @param amGateway AM gateway for auth or bank realm
      * @param amAccessTokenEndpoint
+     * @param certificateChain
+     * @param user
      * @return Session token mean't for the end user
      * @throws OIDCException password grant flow fails
      */
     public String authenticate(@RequestParam("username") String username, @RequestParam("password") String password,
                                Authentication principal, SessionCounterType sessionType, AMGateway amGateway,
-                               String amAccessTokenEndpoint) throws OIDCException, OBErrorException {
+                               String amAccessTokenEndpoint, X509Certificate[] certificateChain, User user) throws OIDCException, OBErrorException {
         try {
-            UserContext userContextFromMatls = (UserContext) principal.getPrincipal();
             AccessTokenResponse accessTokenResponse = openIdService.passwordGrantFlow(amGateway, amAccessTokenEndpoint, username, password);
             log.info("The access token response : {}", accessTokenResponse);
-            UserContext userContext = openIdService.fromIdToken(accessTokenResponse.getIdToken(), userContextFromMatls.getCertificatesChain());
+            UserContext userContext = openIdService.fromIdToken(accessTokenResponse.getIdToken(), certificateChain);
 
             sessionCountersKPIService.incrementSessionCounter(sessionType);
-            List<GrantedAuthority> mergedAuthorities = Stream.concat(userContext.getAuthorities().stream(), userContextFromMatls.getAuthorities().stream())
+            List<GrantedAuthority> mergedAuthorities = Stream.concat(userContext.getAuthorities().stream(), user.getAuthorities().stream())
                     .distinct()
                     .collect(Collectors.toList());
             return generateSessionContextJwt(UserContext.createOIDCClient(userContext.getUsername(),
