@@ -35,10 +35,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.forgerock</groupId>
-            <artifactId>spring-security-multi-auth-starter</artifactId>
-        </dependency>
-        <dependency>
             <groupId>com.forgerock.openbanking.analytics</groupId>
             <artifactId>forgerock-openbanking-analytics-client</artifactId>
         </dependency>

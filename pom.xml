@@ -33,7 +33,7 @@
     <parent>
         <groupId>com.forgerock.openbanking</groupId>
         <artifactId>forgerock-openbanking-starter-parent</artifactId>
-        <version>1.0.31</version>
+        <version>1.0.52</version>
         <relativePath />
     </parent>
 
@@ -48,7 +48,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>11</java.version>
 
-        <ob-common.version>1.0.33</ob-common.version>
+        <ob-common.version>1.0.45</ob-common.version>
         <ob-analytics.version>1.1.8</ob-analytics.version>
 
     </properties>
@@ -119,15 +119,16 @@
 
     <repositories>
         <repository>
-            <id>forgerock-private-releases</id>
-            <name>ForgeRock Private Releases Repository</name>
-            <url>http://maven.forgerock.org/repo/private-releases</url>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
+            <id>bintray-openbanking-toolkit-OpenBankingToolKit</id>
+            <name>bintray</name>
+            <url>https://dl.bintray.com/openbanking-toolkit/OpenBankingToolKit</url>
+        </repository>
+        <repository>
+            <id>jcenter</id>
+            <url>https://jcenter.bintray.com/</url>
         </repository>
     </repositories>
 
@@ -141,9 +142,9 @@
 
     <distributionManagement>
         <repository>
-            <id>forgerock-private-releases</id>
-            <name>ForgeRock Private Releases Repository</name>
-            <url>http://maven.forgerock.org/repo/private-releases</url>
+            <id>bintray-openbankingtoolkit-OpenBankingToolkit</id>
+            <name>OpenBankingToolkit Auth</name>
+            <url>https://api.bintray.com/maven/openbanking-toolkit/OpenBankingToolKit/openbanking-auth/;publish=1</url>
         </repository>
     </distributionManagement>
 
