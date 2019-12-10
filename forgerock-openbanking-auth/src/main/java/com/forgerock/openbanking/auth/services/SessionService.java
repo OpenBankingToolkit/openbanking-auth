@@ -22,6 +22,8 @@ package com.forgerock.openbanking.auth.services;
 
 import com.forgerock.cert.SubjectHash;
 import com.forgerock.openbanking.am.gateway.AMGateway;
+import com.forgerock.openbanking.analytics.model.entries.SessionCounterType;
+import com.forgerock.openbanking.analytics.services.SessionCountersKPIService;
 import com.forgerock.openbanking.constants.OpenBankingConstants;
 import com.forgerock.openbanking.exceptions.OBErrorAuthenticationException;
 import com.forgerock.openbanking.exceptions.OBErrorException;
@@ -34,6 +36,7 @@ import com.forgerock.openbanking.model.UserGroup;
 import com.forgerock.openbanking.model.error.OBRIErrorType;
 import com.forgerock.openbanking.model.oidc.AccessTokenResponse;
 import com.forgerock.openbanking.oidc.services.OpenIdService;
+import com.google.common.collect.Sets;
 import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
@@ -68,6 +71,8 @@ public class SessionService {
     private String issuerId;
     @Value("${ob.auth.session.token-lifetime}")
     private Integer sessionLifeTime;
+    @Autowired
+    private SessionCountersKPIService sessionCountersKPIService;
     @Autowired
     private OpenIdService openIdService;
 
@@ -138,6 +143,7 @@ public class SessionService {
 
     /**
      * Authenticate with password grant flow
+     * @param sessionType which type of session is being created
      * @param amGateway AM gateway for auth or bank realm
      * @param amAccessTokenEndpoint
      * @param certificateChain
@@ -146,13 +152,14 @@ public class SessionService {
      * @throws OIDCException password grant flow fails
      */
     public String authenticate(@RequestParam("username") String username, @RequestParam("password") String password,
-                               Authentication principal, AMGateway amGateway,
+                               Authentication principal, SessionCounterType sessionType, AMGateway amGateway,
                                String amAccessTokenEndpoint, X509Certificate[] certificateChain, User user) throws OIDCException, OBErrorException {
         try {
             AccessTokenResponse accessTokenResponse = openIdService.passwordGrantFlow(amGateway, amAccessTokenEndpoint, username, password);
             log.info("The access token response : {}", accessTokenResponse);
             UserContext userContext = openIdService.fromIdToken(accessTokenResponse.getIdToken(), certificateChain);
 
+            sessionCountersKPIService.incrementSessionCounter(sessionType);
             List<GrantedAuthority> mergedAuthorities = Stream.concat(userContext.getAuthorities().stream(), user.getAuthorities().stream())
                     .distinct()
                     .collect(Collectors.toList());
