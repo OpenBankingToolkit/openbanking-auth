@@ -21,8 +21,6 @@
 package com.forgerock.openbanking.auth.api;
 
 
-import com.forgerock.openbanking.analytics.model.entries.SessionCounterType;
-import com.forgerock.openbanking.analytics.services.SessionCountersKPIService;
 import com.forgerock.openbanking.auth.conditional.ConditionalOnOIDCClientProperties;
 import com.forgerock.openbanking.auth.model.AuthorisationResponse;
 import com.forgerock.openbanking.auth.model.ExchangeCodeResponse;
@@ -55,17 +53,14 @@ import static com.forgerock.openbanking.auth.services.CookieService.OIDC_ORIGIN_
 public class UserApiController implements UserApi {
     private final String redirectUri;
     private final UserAuthService userAuthService;
-    private SessionCountersKPIService sessionCountersKPIService;
     private UserProvider userProvider;
 
     @Autowired
     public UserApiController(@Value("${ob.auth.oidc.client.redirect-uri}") String redirectUri,
                              UserAuthService userAuthService,
-                             SessionCountersKPIService sessionCountersKPIService,
                              UserProvider userProvider) {
         this.redirectUri = redirectUri;
         this.userAuthService = userAuthService;
-        this.sessionCountersKPIService = sessionCountersKPIService;
         this.userProvider = userProvider;
     }
 
@@ -86,7 +81,6 @@ public class UserApiController implements UserApi {
             Principal principal
     ) throws OIDCException, InvalidTokenException, CertificateEncodingException {
         log.debug("Attempt login for principal: {}", principal);
-        sessionCountersKPIService.incrementSessionCounter(SessionCounterType.METRIC);
         ExchangeCodeResponse exchangeCodeResponse = userAuthService.loginUserWithCode(authorisationResponse.getCode(), originURL, redirectUri, response);
         return ResponseEntity.ok(exchangeCodeResponse);
     }
