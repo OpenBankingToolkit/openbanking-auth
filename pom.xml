@@ -49,7 +49,7 @@
         <java.version>11</java.version>
 
         <ob-common.version>1.0.45</ob-common.version>
-        <ob-analytics.version>1.0.0</ob-analytics.version>
+        <ob-clients.version>1.0.1</ob-clients.version>
 
     </properties>
 
@@ -91,9 +91,9 @@
                 <version>${ob-common.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.forgerock.openbanking.analytics</groupId>
+                <groupId>com.forgerock.openbanking.clients</groupId>
                 <artifactId>forgerock-openbanking-analytics-client</artifactId>
-                <version>${ob-analytics.version}</version>
+                <version>${ob-clients.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
