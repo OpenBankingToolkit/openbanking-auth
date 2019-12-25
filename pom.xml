@@ -49,7 +49,7 @@
         <java.version>11</java.version>
 
         <ob-common.version>1.0.57</ob-common.version>
-        <ob-clients.version>1.0.15</ob-clients.version>
+        <ob-clients.version>1.0.16</ob-clients.version>
 
     </properties>
 
