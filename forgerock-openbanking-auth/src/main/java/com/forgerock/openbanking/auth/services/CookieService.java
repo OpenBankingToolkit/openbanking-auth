@@ -20,6 +20,7 @@
  */
 package com.forgerock.openbanking.auth.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -36,10 +37,15 @@ public class CookieService {
     public static final String SESSION_CONTEXT_COOKIE_NAME = "obri-session";
     public static final String OIDC_ORIGIN_URI_CONTEXT_COOKIE_NAME = "OIDC_ORIGIN_URL";
 
-    @Value("${ob.auth.session.cookie.domains}")
     private List<String> domains;
-    @Value("${ob.auth.session.token-lifetime}")
     private Integer sessionLifeTime;
+
+    @Autowired
+    public CookieService(@Value("${ob.auth.session.cookie.domains}") List<String> domains,
+                  @Value("${ob.auth.session.token-lifetime}") Integer sessionLifeTime){
+        this.domains = domains;
+        this.sessionLifeTime = sessionLifeTime;
+    }
 
     public void createSessionCookie(HttpServletResponse response, String sessionJwt) {
         createCookie(response, CookieService.SESSION_CONTEXT_COOKIE_NAME, sessionJwt);

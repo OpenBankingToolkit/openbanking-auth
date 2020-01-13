@@ -62,8 +62,11 @@ public class UserAuthService {
     private final List<String> acrValues;
 
     @Autowired
-    public UserAuthService(OpenIdService openIdService, SessionService sessionService, CookieService cookieService,
-                           @Value("${am.internal.oidc.endpoint.accesstoken}") String amAccessTokenEndpoint, AMAuthGateway amGateway,
+    public UserAuthService(OpenIdService openIdService,
+                           SessionService sessionService,
+                           CookieService cookieService,
+                           @Value("${am.internal.oidc.endpoint.accesstoken}") String amAccessTokenEndpoint,
+                           AMAuthGateway amGateway,
                            @Value("${ob.auth.oidc.acr}") Optional<List<String>> acrValue) {
         this.openIdService = openIdService;
         this.sessionService = sessionService;

@@ -58,11 +58,10 @@ public class UserApiController implements UserApi {
     private SessionCountersKPIService sessionCountersKPIService;
     private UserProvider userProvider;
 
-    @Autowired
     public UserApiController(@Value("${ob.auth.oidc.client.redirect-uri}") String redirectUri,
-                             UserAuthService userAuthService,
-                             SessionCountersKPIService sessionCountersKPIService,
-                             UserProvider userProvider) {
+                             @Autowired UserAuthService userAuthService,
+                             @Autowired SessionCountersKPIService sessionCountersKPIService,
+                             @Autowired UserProvider userProvider) {
         this.redirectUri = redirectUri;
         this.userAuthService = userAuthService;
         this.sessionCountersKPIService = sessionCountersKPIService;

@@ -65,16 +65,24 @@ import static com.forgerock.openbanking.constants.OpenBankingConstants.SSOClaim.
 @Slf4j
 public class SessionService {
 
-    @Autowired
     private CryptoApiClient cryptoApiClient;
-    @Value("${ob.auth.session.issuer-id}")
     private String issuerId;
-    @Value("${ob.auth.session.token-lifetime}")
     private Integer sessionLifeTime;
-    @Autowired
     private SessionCountersKPIService sessionCountersKPIService;
-    @Autowired
     private OpenIdService openIdService;
+
+    SessionService(@Autowired CryptoApiClient cryptApiClient,
+                   @Value("${ob.auth.session.issuer-id}") String issuerId,
+                   @Value("${ob.auth.session.token-lifetime}") Integer sessionLifeTime,
+                   @Autowired SessionCountersKPIService sessionCountersKPIService,
+                   @Autowired OpenIdService openIdService){
+        this.cryptoApiClient = cryptApiClient;
+        this.issuerId = issuerId;
+        this.sessionLifeTime = sessionLifeTime;
+        this.sessionCountersKPIService = sessionCountersKPIService;
+        this.openIdService = openIdService;
+    }
+
 
     /**
      * Get an expired session, useful for logout a user
