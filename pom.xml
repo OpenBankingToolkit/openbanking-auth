@@ -144,8 +144,8 @@
 
 
     <scm>
-        <connection>scm:git:https://github.com/OpenBankingToolkit/openbanking-auth.git</connection>
-        <developerConnection>scm:git:https://github.com/OpenBankingToolkit/openbanking-auth.git</developerConnection>
+        <connection>scm:git:git@github.com:OpenBankingToolkit/openbanking-auth.git</connection>
+        <developerConnection>scm:git:git@github.com:OpenBankingToolkit/openbanking-auth.git</developerConnection>
         <url>https://github.com/OpenBankingToolkit/openbanking-auth.git</url>
         <tag>HEAD</tag>
     </scm>
