@@ -33,5 +33,5 @@ jobs:
       - name: Release package
         run:  mvn -B deploy
         env:
-          MAVEN_USERNAME: ${{ secrets.ARTIFACTORY_USER }}
+          MAVEN_USERNAME: ${{ secrets.ARTIFACTORY_USERNAME }}
           MAVEN_CENTRAL_TOKEN: ${{ secrets.ARTIFACTORY_TOKEN }}
