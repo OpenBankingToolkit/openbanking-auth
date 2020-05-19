@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright 2019 ForgeRock AS.
+
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <name>ForgeRock OpenBanking Reference Implementation - auths</name>
+    <groupId>com.forgerock.openbanking</groupId>
+    <artifactId>forgerock-openbanking-starter-auth</artifactId>
+    <version>1.0.56-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <parent>
+        <groupId>com.forgerock.openbanking</groupId>
+        <artifactId>forgerock-openbanking-starter-parent</artifactId>
+        <version>1.0.67</version>
+        <relativePath />
+    </parent>
+
+    <organization>
+        <name>ForgeRock</name>
+        <url>http://www.forgerock.org</url>
+    </organization>
+    <url>http://www.forgerock.org</url>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>11</java.version>
+
+        <ob-common.version>1.0.75</ob-common.version>
+        <ob-clients.version>1.0.32</ob-clients.version>
+
+    </properties>
+
+    <modules>
+        <module>forgerock-openbanking-auth</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- OpenBanking -->
+            <dependency>
+                <groupId>com.forgerock.openbanking</groupId>
+                <artifactId>forgerock-openbanking-jwt</artifactId>
+                <version>${ob-common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.forgerock.openbanking</groupId>
+                <artifactId>forgerock-openbanking-model</artifactId>
+                <version>${ob-common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.forgerock.openbanking</groupId>
+                <artifactId>forgerock-openbanking-ssl</artifactId>
+                <version>${ob-common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.forgerock.openbanking</groupId>
+                <artifactId>forgerock-openbanking-upgrade</artifactId>
+                <version>${ob-common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.forgerock.openbanking</groupId>
+                <artifactId>forgerock-openbanking-am</artifactId>
+                <version>${ob-common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.forgerock.openbanking</groupId>
+                <artifactId>forgerock-openbanking-oidc</artifactId>
+                <version>${ob-common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.forgerock.openbanking.clients</groupId>
+                <artifactId>forgerock-openbanking-analytics-client</artifactId>
+                <version>${ob-clients.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>spring-snapshots</id>
+            <name>Spring Snapshots</name>
+            <url>https://repo.spring.io/snapshot</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+        <pluginRepository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>https://repo.spring.io/milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <repositories>
+        <repository>
+            <id>maven.forgerock.org-community</id>
+            <name>maven.forgerock.org-releases</name>
+            <url>https://maven.forgerock.org:443/repo/community</url>
+        </repository>
+        <repository>
+            <id>maven.forgerock.org-community-snapshots</id>
+            <name>maven.forgerock.org-snapshots</name>
+            <url>https://maven.forgerock.org:443/repo/community</url>
+        </repository>
+        <repository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>bintray-openbanking-toolkit-OpenBankingToolKit</id>
+            <name>bintray</name>
+            <url>https://dl.bintray.com/openbanking-toolkit/OpenBankingToolKit</url>
+        </repository>
+        <repository>
+            <id>jcenter</id>
+            <url>https://jcenter.bintray.com/</url>
+        </repository>
+    </repositories>
+
+
+    <scm>
+        <connection>scm:git:git@github.com:OpenBankingToolkit/openbanking-auth.git</connection>
+        <developerConnection>scm:git:git@github.com:OpenBankingToolkit/openbanking-auth.git</developerConnection>
+        <url>https://github.com/OpenBankingToolkit/openbanking-auth.git</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <distributionManagement>
+        <repository>
+            <id>maven.forgerock.org-community</id>
+            <name>maven.forgerock.org-releases</name>
+            <url>https://maven.forgerock.org:443/repo/community</url>
+        </repository>
+        <snapshotRepository>
+            <id>maven.forgerock.org-community-snapshots</id>
+            <name>maven.forgerock.org-snapshots</name>
+            <url>https://maven.forgerock.org:443/repo/community</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+
+</project>
