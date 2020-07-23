@@ -27,7 +27,7 @@
     <name>ForgeRock OpenBanking Reference Implementation - auths</name>
     <groupId>com.forgerock.openbanking</groupId>
     <artifactId>forgerock-openbanking-starter-auth</artifactId>
-    <version>1.0.58</version>
+    <version>1.0.59-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <parent>
@@ -145,7 +145,7 @@
         <connection>scm:git:git@github.com:OpenBankingToolkit/openbanking-auth.git</connection>
         <developerConnection>scm:git:git@github.com:OpenBankingToolkit/openbanking-auth.git</developerConnection>
         <url>https://github.com/OpenBankingToolkit/openbanking-auth.git</url>
-        <tag>1.0.58</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <distributionManagement>
