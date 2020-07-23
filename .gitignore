@@ -1,3 +1,19 @@
-*.iml
+# IDEs and editors
 .idea/
+!.idea/runConfigurations/*
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.iml
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# Maven
 target/
+*.versionsBackup
+*.releaseBackup
+release.properties
