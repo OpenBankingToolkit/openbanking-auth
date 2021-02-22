@@ -33,7 +33,7 @@
     <parent>
         <groupId>com.forgerock.openbanking</groupId>
         <artifactId>forgerock-openbanking-starter-parent</artifactId>
-        <version>1.0.83</version>
+        <version>1.1.86</version>
         <relativePath />
     </parent>
 
@@ -47,8 +47,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>11</java.version>
-        <ob-clients.version>1.0.44</ob-clients.version>
-        <ob-common.version>1.0.86</ob-common.version>
+        <ob-clients.version>1.0.45</ob-clients.version>
+        <ob-common.version>1.0.90</ob-common.version>
     </properties>
 
     <modules>
