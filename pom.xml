@@ -47,8 +47,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>11</java.version>
-        <ob-clients.version>1.2.9</ob-clients.version>
-        <ob-common.version>1.2.9</ob-common.version>
+        <ob-clients.version>1.2.10</ob-clients.version>
+        <ob-common.version>1.2.10</ob-common.version>
     </properties>
 
     <modules>
