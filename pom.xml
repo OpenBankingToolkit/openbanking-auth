@@ -27,7 +27,7 @@
     <name>ForgeRock OpenBanking Reference Implementation - auths</name>
     <groupId>com.forgerock.openbanking</groupId>
     <artifactId>forgerock-openbanking-starter-auth</artifactId>
-    <version>1.5.3-SNAPSHOT</version>
+    <version>1.5.4-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <parent>
@@ -47,8 +47,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>11</java.version>
-        <ob-clients.version>1.5.2</ob-clients.version>
-        <ob-common.version>1.5.2</ob-common.version>
+        <ob-clients.version>1.5.3</ob-clients.version>
+        <ob-common.version>1.5.3</ob-common.version>
     </properties>
 
     <modules>
